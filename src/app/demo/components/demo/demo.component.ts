@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoComponent implements OnInit {
 
-  title = 'platzi-store';
+  title: string = 'platzi-store';
 
-  items = ['mauricio', 'julian', 'mayra', 'monica'];
+  items: string[] = ['mauricio', 'julian', 'mayra', 'monica'];
 
-  fruits = ['🍎', '🍏', '🍇', '🍌', '🍑'];
+  fruits: string[] = ['🍎', '🍏', '🍇', '🍌', '🍑'];
 
-  power = 10;
+  power: number = 10;
 
   constructor() { }
 
