@@ -1,4 +1,18 @@
-:host {
+.crop-image {
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
+/* :host {
   margin: 2px;
   padding: 10px;
   border: 1px solid black;
@@ -16,10 +30,6 @@ picture {
   width: 90%;
   box-sizing: border-box;
 }
-img {
-  max-width: 100%;
-  object-fit: cover;
-}
 button {
   background-color: #eba83a;
   color: white;
@@ -35,4 +45,4 @@ strong {
   position: absolute;
   bottom: 10px;
   left: 10px;
-}
+} */
