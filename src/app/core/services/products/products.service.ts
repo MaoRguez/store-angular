@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Product } from './../../../product.model';
+import { environment } from './../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  products: Product[] = [
+  /* products: Product[] = [
     {
       id: '1',
       image: 'assets/images/cetus-optimus.jpeg',
@@ -57,15 +59,31 @@ export class ProductsService {
       price: 80000,
       description: 'bla bla bla bla bla'
     }
-  ];
+  ]; */
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getAllProducts() {
-    return this.products;
+    return this.http.get<Product[]>(environment.url_api);
+    //return this.products;
   }
 
   getProduct(id: string) {
-    return this.products.find(item => id === item.id);
+    return this.http.get<Product>(`${environment.url_api}/${id}`);
+    //return this.products.find(item => id === item.id);
+  }
+
+  createProduct(product: Product) {
+    return this.http.post(`${environment.url_api}`, product);
+  }
+
+  updateProduct(id: string, changes: Partial<Product>) {
+    return this.http.put(`${environment.url_api}/${id}`, changes)
+  }
+
+  deleteProduct(id: string) {
+    return this.http.delete(`${environment.url_api}/${id}`);
   }
 }
