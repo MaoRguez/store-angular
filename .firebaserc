@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "store-angular-2ff45": {
+      "hosting": {
+        "platzi-store": [
+          "store-angular-2ff45"
+        ]
+      }
+    }
+  }
+}
