@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { ProductsService } from '@core/services/products/products.service';
 import { Product } from './../../../product.model';
@@ -11,7 +13,7 @@ import { Product } from './../../../product.model';
 })
 export class ProductDetailComponent implements OnInit {
 
-  product: Product;
+  product$: Observable<Product>;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,20 +21,19 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      const id = params.id;
-      this.fetchProduct(id);
-      //this.product = this.productsService.getProduct(id);
-    });
+    this.product$ = this.route.params
+    .pipe(
+      switchMap((params: Params) => this.productsService.getProduct(params.id))
+    )
   }
 
-  fetchProduct(id: string) {
+  /* fetchProduct(id: string) {
     this.productsService.getProduct(id)
     .subscribe(product => {
       this.product = product;
       console.log(product);
     });
-  }
+  } */
 
   createProduct() {
     const newProduct: Product = {
@@ -66,4 +67,34 @@ export class ProductDetailComponent implements OnInit {
       console.log(rta)
     });
   }
+
+  getRandomUsers() {
+    this.productsService.getRandomUsers()
+    .subscribe(
+      // Manejo de errores
+      users => { // good
+        console.log(users);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  getFile() {
+    this.productsService.getFile()
+    .subscribe(content => {
+      console.log(content)
+    });
+  }
+
+  /* Para descargar el archivo utilizando libreria FileSaver
+  getFile() {
+    this.productsService.getFile()
+    .subscribe(content => {
+      console.log(content);
+      const blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+      FileSaver.saveAs(blob, 'hello world.txt');
+    });
+  } */
 }

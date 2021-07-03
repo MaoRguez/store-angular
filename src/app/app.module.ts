@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 //import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -15,6 +15,14 @@ import { CoreModule } from './core/core.module';
 import { SwiperModule } from 'swiper/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from './../environments/environment';
+
+import { AuthInterceptor } from './auth.interceptor';
+
+import * as Sentry from "@sentry/angular";
+
+Sentry.init({
+  dsn: 'https://b0f65953b31e4d2c91e959293e52e3dc@o880754.ingest.sentry.io/5834696',
+});
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +41,13 @@ import { environment } from './../environments/environment';
     //AngularFireAuth,
     AngularFireStorageModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
