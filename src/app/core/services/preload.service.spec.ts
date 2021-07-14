@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TokenService } from './token.service';
+import { PreloadService } from './preload.service';
 
-describe('TokenService', () => {
-  let service: TokenService;
+describe('PreloadService', () => {
+  let service: PreloadService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TokenService);
+    service = TestBed.inject(PreloadService);
   });
 
   it('should be created', () => {
